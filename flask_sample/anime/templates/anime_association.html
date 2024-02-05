@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Animes{% endblock %}
+
+<!-- content -->
+{% block content %}
+{% from "_table_helper.html" import render_table %}
+{% from "_formhelpers.html" import render_field %}
+<div class="container-fluid">
+    {% include '_anime_search.html' %}
+
+    <form id="apply" action="{{ url_for('anime.manage_assoc') }}" method="POST">
+        <input type="submit" value="Map it" class="btn btn-warning mt-3 mb-3" />
+    </form>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Users</h2>
+            <ul class="list-group">
+                {% for user in users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ user.username }}
+                    <input form="apply" type="checkbox" class="form-check-input" name="users[]"
+                        value="{{ user.get('id') }}" />
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Animes</h2>
+            <ul class="list-group">
+                {% for anime in animes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ anime.name }}
+                    <input form="apply" type="checkbox" class="form-check-input" name="animes[]"
+                        value="{{ anime.get('id') }}" />
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}View Anime{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="h3 mb-4">View Anime</div>
+
+    <div class="card flex-row border-dark mb-3 shadow-lg p-3 mb-5 bg-white rounded anime-card">
+        <div class="card-header bg-info text-white border-dark">
+            <h5 class="card-title">Anime Details</h5>
+        </div>
+        <div class="card-body text-dark">
+            <ul class="list-group list-group-flush">
+                {% for k, v in anime.items() %}
+                <li class="list-group-item">
+                    <strong>{{ k.title().replace("_", " ") }}:</strong> {{ v }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card-footer bg-transparent border-dark">
+            <div class="row">
+                {% if current_user.is_authenticated %}
+
+                {% set args = dict(request.args) %}
+                {% if "id" in args.keys() %}
+                {% set _ = args.pop("id", None) %}
+                {% endif %}
+
+                <div class="col-12">
+                    <a href="{{url_for('anime.track', id=request.args.get('id'), **args)}}"
+                        class="btn btn-warning w-100 mb-3 anime-action-button">
+                        {% if anime.is_assoc %}
+                        <i class="bi bi-heart-fill"></i> Remove from Watchlist
+                        {% else %}
+                        <i class="bi bi-heart"></i> Add to Watchlist
+                        {% endif %}
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if current_user.is_authenticated and current_user.has_role("Admin") %}
+                <div class="col-6">
+                    <a href="{{url_for('anime.edit', id=request.args.get('id'), **args)}}"
+                        class="btn btn-success w-100 anime-action-button">Edit</a>
+                </div>
+                <div class="col-6">
+                    <a href="{{url_for('anime.delete', id=request.args.get('id'), **args)}}"
+                        class="btn btn-danger w-100 anime-action-button">Delete</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card-footer bg-transparent border-dark">
+            <a href="{{ url_for('anime.list', **args) }}"
+                class="btn btn-secondary w-100 anime-action-button">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

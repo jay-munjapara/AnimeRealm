@@ -1,0 +1,81 @@
+{% macro render_table(data, title=None, ignored=[], view=None, edit=None, delete=None, assoc=None, table_class="") %}
+<div class="container-fluid mb-5">
+    {% if title %}
+    <div class="h1">{{ title }}</div>
+    {% endif %}
+    <!-- # jm2527 12/08/2023 -->
+
+    <table class="table {{ table_class }} table-hover table-bordered table-sm ">
+        <thead>
+            {% if data and data|length > 0 %}
+            <tr class="text-capitalize bg-light">
+                {% for r in data[0] %}
+                {% if r not in ignored %}
+                <th>{{ r | replace("_", " ") }}</th>
+                {% endif %}
+                {% endfor %}
+                {% if view or edit or delete %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% for r in data %}
+            <tr class="text-capitalize">
+                {% for k, v in r.items() %}
+                {% if k not in ignored %}
+                <td>
+                    {% if v or v == 0 %}
+                    {% if k == "username" and "user_id" in r.keys() %}
+                    <a href="{{url_for('auth.profile', id=r['user_id'])}}">{{v}}</a>
+                    {% else %}
+                    {{v}}
+                    {% endif %}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                {% endif %}
+                {% endfor %}
+
+                {% if view or edit or delete or assoc%}
+                <td>
+                    {% set args = dict(request.args) %}
+                    {% if "id" in args.keys() %}
+                    {% set _ = args.pop("id", None) %}
+                    {% endif %}
+
+                    {% if assoc and r["id"] and "is_assoc" in r.keys() %}
+                    <a href="{{ url_for(assoc, id=r['id'], **args) }}"
+                        class="btn btn-sm btn-outline-warning w-100 mb-2">{{"Add to Watchlist" if r["is_assoc"] == 0 else "Remove from Watchlist"}}</a>
+                    {% endif %}
+
+                    <!-- # jm2527 12/10/2023 -->
+                    {% if view and r["id"] %}
+                    <a href="{{ url_for(view, id=r['id'], **args) }}"
+                        class="btn btn-sm btn-outline-info w-100 mb-2">View</a>
+                    {% endif %}
+                    <div class="d-flex">
+                        {% if edit and r["id"] %}
+                        <a href="{{ url_for(edit, id=r['id'], **args) }}"
+                            class="btn btn-sm btn-outline-success mr-2">Edit</a>
+                        {% endif %}
+                        {% if delete and r["id"] %}
+                        <a href="{{ url_for(delete, id=r['id'], **args) }}"
+                            class="btn btn-sm btn-outline-danger ml-2">Delete</a>
+                        {% endif %}
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% if not data %}
+            <tr>
+                <td colspan="100%">No results</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endmacro %}

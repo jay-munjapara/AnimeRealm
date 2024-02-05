@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}{{ type }} Anime {% endblock %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<div class="container-fluid mb-3">
+    <div class="h3">{{ type }} Anime </div>
+    <form method="POST">
+        {% for field in form %}
+        {% if field.name != 'csrf_token'%}
+        {{render_field(field)}}
+        {% endif %}
+        {% endfor %}
+        {{ form.hidden_tag() }}
+        {{form.submit(class="btn btn-outline-primary btn-block mt-3 w-100")}}
+    </form>
+    <!-- # jm2527 12/10/2023 -->
+    <a href="{{ url_for('anime.list') }}" class="btn btn-outline-secondary mt-3 w-100">Back</a>
+
+</div>
+{% endblock %}
