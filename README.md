@@ -28,13 +28,13 @@ Welcome to the Anime API Project, a dynamic platform developed from September 20
 
 ### Milestone Specific Division:
 - **Milestone 1:** User Authentication
-   - [Milestone 1 Submission Details](https://github.com/jay-munjapara/jm2527-is601-007/blob/prod/flask_sample/milestone1.md)
+   - [Milestone 1 Submission Details](https://github.com/jay-munjapara/AnimeRealm/blob/main/anime_realm/milestone1.md)
 
 - **Milestone 2:** API Integration and Data Handling
-   - [Milestone 2 Submission Details](https://github.com/jay-munjapara/jm2527-is601-007/blob/prod/flask_sample/milestone2.md)
+   - [Milestone 2 Submission Details](https://github.com/jay-munjapara/AnimeRealm/blob/main/anime_realm/milestone2.md)
 
 - **Milestone 3:** Data Association
-   - [Milestone 3 Submission Details](https://github.com/jay-munjapara/jm2527-is601-007/blob/prod/flask_sample/milestone3.md)
+   - [Milestone 3 Submission Details](https://github.com/jay-munjapara/AnimeRealm/blob/main/anime_realm/milestone3.md)
 
 ### Deployment:
 
