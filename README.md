@@ -1,6 +1,6 @@
-## Anime API Project - Introduction:
+## AnimeRealm an API Project - Introduction:
 
-Welcome to the Anime API Project, a dynamic platform developed from September 2023 to December 2023. Created by Jay Rajesh Munjapara as part of the IS601 course, this project offers real-time anime data to enthusiasts. The system seamlessly integrates Rapid API for dynamic content updates, ensuring a rich user experience.
+Welcome to the AnimeRealm API Project, a dynamic platform developed from September 2023 to December 2023. Created by me as part of the IS601 course, this project offers real-time anime data to enthusiasts. The system seamlessly integrates Rapid API for dynamic content updates, ensuring a rich user experience.
 
 ### Key Features:
 
